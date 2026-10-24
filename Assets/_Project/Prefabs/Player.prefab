@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 974419095114807642}
   - component: {fileID: 6002250270910832913}
-  - component: {fileID: 5849911591523601103}
   - component: {fileID: 2125693899688851585}
   - component: {fileID: 5283198289435293965}
   m_Layer: 0
@@ -94,20 +93,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &5849911591523601103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8342722371488489800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53efa59d247a62d4eaf19649069234c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovemen
-  moveSpeed: 3
-  rb: {fileID: 2125693899688851585}
 --- !u!50 &2125693899688851585
 Rigidbody2D:
   serializedVersion: 5

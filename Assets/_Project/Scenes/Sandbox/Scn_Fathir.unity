@@ -709,6 +709,30 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1050401205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8342722371488489800, guid: 46430df601efd08409a1979d6ce0a93d, type: 3}
+  m_PrefabInstance: {fileID: 6014931676292301672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1050401207 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2125693899688851585, guid: 46430df601efd08409a1979d6ce0a93d, type: 3}
+  m_PrefabInstance: {fileID: 6014931676292301672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1050401211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050401205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a60a55d431bc0489cbfa303e665298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  config: {fileID: 11400000, guid: eb3ad96cfad1b4a4cb7a4f10e24b6717, type: 2}
+  rb: {fileID: 1050401207}
 --- !u!1 &1102680864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,10 +1613,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5849911591523601103, guid: 46430df601efd08409a1979d6ce0a93d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8342722371488489800, guid: 46430df601efd08409a1979d6ce0a93d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1050401211}
   m_SourcePrefab: {fileID: 100100000, guid: 46430df601efd08409a1979d6ce0a93d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
