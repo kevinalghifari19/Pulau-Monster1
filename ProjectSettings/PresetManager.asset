@@ -4,4 +4,15 @@
 PresetManager:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_DefaultPresets: {}
+  m_DefaultPresets:
+  - first:
+      m_NativeTypeID: 1006
+      m_ManagedTypePPtr: {fileID: 0}
+      m_ManagedTypeFallback: 
+    second:
+    - m_Preset: {fileID: 2655988077585873504, guid: e72d16506c6078646a26b83ef88faff5, type: 2}
+      m_Filter: D:\Documents\GitHub\Pulau-Monster1\Assets\_Project\Art
+      m_Disabled: 0
+    - m_Preset: {fileID: 0}
+      m_Filter: 
+      m_Disabled: 0
