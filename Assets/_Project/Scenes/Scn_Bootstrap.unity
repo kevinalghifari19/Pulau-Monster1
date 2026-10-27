@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ae0e9c09b708349918b8a5bcbb8e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
-  firstScene: Scn_World
+  firstScene: Scn_Nando
 --- !u!4 &1440509034
 Transform:
   m_ObjectHideFlags: 0
