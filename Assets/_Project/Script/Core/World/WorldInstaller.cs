@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class WorldInstaller : MonoBehaviour
+public class WorldInstaller : SceneInstaller
 {
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerInteractor interactor;
+    [SerializeField] private PartnerFollower follower;
+    [SerializeField] private MonsterData debugStarter; // sementara, dihapus P6
 
-    public void Install(IMoveInput moveInput, IActionInput actionInput)
+    public override void Install(GameServices s)
     {
-        if (player == null) player = FindAnyObjectByType<PlayerMovement>();
-        if (interactor == null) interactor = FindAnyObjectByType<PlayerInteractor>();
+        player.Construct(s.Input);
+        interactor.Construct(s.Input);
+        follower.Construct(s.Party, player);
 
-        if (player != null) player.Construct(moveInput);
-        if (interactor != null) interactor.Construct(actionInput);
+        foreach (WildMonster wild in FindObjectsByType<WildMonster>(FindObjectsSortMode.None))
+            wild.Construct(s.Battle, s.Scenes, s.Party, player.transform);
+
+        if (s.Party.Partner == null && debugStarter != null)
+            s.Party.SetPartner(new MonsterInstance(debugStarter, 3));
     }
 }
