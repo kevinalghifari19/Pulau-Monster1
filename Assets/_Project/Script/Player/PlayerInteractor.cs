@@ -1,3 +1,4 @@
+// Kode_P4 — Saat tombol Interact ditekan, cari IInteractable tepat di depan pemain. Dibuat di P3, diubah di P4.
 using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
@@ -9,21 +10,22 @@ public class PlayerInteractor : MonoBehaviour
 
     private IActionInput input;
 
-    public void Construct(IActionInput actionInput)
-    {
-        input = actionInput;
-    }
+    public void Construct(IActionInput actionInput) => input = actionInput;
 
     private Vector2 ProbePoint => (Vector2)transform.position + movement.Facing * reach;
 
     void Update()
     {
         if (input == null || !input.InteractPressed) return;
-
         Collider2D hit = Physics2D.OverlapCircle(ProbePoint, radius, interactableMask);
         if (hit != null && hit.TryGetComponent(out IInteractable target))
-        {
             target.Interact(this);
-        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (movement == null) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(ProbePoint, radius);
     }
 }
