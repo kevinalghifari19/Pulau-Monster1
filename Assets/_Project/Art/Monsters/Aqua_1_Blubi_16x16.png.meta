@@ -162,8 +162,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8655359825ad2d4d98b48074eb43fef
-      internalID: 2042551767
+      spriteID: d12137955c17e424e833aa185573c0e5
+      internalID: 1597394895
       vertices: []
       indices: 
       edges: []
@@ -184,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9480c671af573d442a814133872a1daa
-      internalID: 1583069397
+      spriteID: 34b65581d14fc6d4c80df85bf47c1823
+      internalID: -1637044631
       vertices: []
       indices: 
       edges: []
@@ -204,12 +204,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":1,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Aqua_1_Blubi_16x16_0: 3550268219214689552
       Aqua_1_Blubi_16x16_1: -2294804109517415057
-      Aqua_1_Blubi_16x16_2: 2042551767
-      Aqua_1_Blubi_16x16_3: 1583069397
+      Aqua_1_Blubi_16x16_2: 1597394895
+      Aqua_1_Blubi_16x16_3: -1637044631
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
