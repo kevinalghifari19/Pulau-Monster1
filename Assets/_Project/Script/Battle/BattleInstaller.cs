@@ -1,24 +1,19 @@
-// Kode_P4 — Installer Scn_Battle: menyiapkan battle dari BattleSession. Ditambahkan di P4.
-// Kode_P4: versi sementara (slide p5-battle). P5 mengganti seluruh isinya dengan BattleSystem + BattleView.
-using System.Collections;
+// Kode_P5 — Installer Scn_Battle: menyiapkan battle dari BattleSession. Dibuat di P4, diubah di P5.
 using UnityEngine;
 
 public class BattleInstaller : SceneInstaller
 {
-    [SerializeField] private SpriteRenderer enemySprite;   // EnemyMon di Scn_Battle
+    [SerializeField] private BattleSystem battle;
+    [SerializeField] private BattleView view;
+    [SerializeField] private SpriteRenderer background;    // versi demo
+    [SerializeField] private Sprite forestBackground;
+    [SerializeField] private Sprite caveBackground;
 
     public override void Install(GameServices s)
     {
-        MonsterInstance enemy = s.Battle.Enemy;
-        enemySprite.sprite = enemy.Data.Frames[0];          // bukti data ikut pindah scene
-        Debug.Log($"Battle melawan {enemy.Data.DisplayName} Lv {enemy.Level}" + (s.Battle.IsBoss ? " (boss)" : ""));
-        StartCoroutine(AutoWin(s.Scenes));
-    }
-
-    // Kode_P4: menang otomatis setelah 2 detik agar alur dunia → battle → dunia bisa diuji.
-    private IEnumerator AutoWin(SceneFlow scenes)
-    {
-        yield return new WaitForSeconds(2f);
-        scenes.EndBattle(BattleResult.Win);
+        background.sprite = s.Battle.IsBoss ? caveBackground : forestBackground;
+        battle.Construct(s.Party, s.Battle, s.Scenes);
+        new BattlePresenter(battle, view);
+        battle.Begin();
     }
 }
