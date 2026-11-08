@@ -1,5 +1,6 @@
-// Kode_P5 — Installer Scn_World: menyambungkan service ke pemain, NPC, dan monster liar. Dibuat di P2, diubah di P3, P4, P5.
-// Versi demo: partner mengikuti pemain. P6 menambah dialog, flag, save, musik, dan narasi pembuka.
+// Kode_P6 — Installer Scn_World: menyambungkan service ke pemain, NPC, dan monster liar. Dibuat di P2, diubah di P3, P4, P5, P6.
+// Versi demo: narasi pembuka, partner mengikuti pemain, dan kembali ke desa saat kalah.
+using System.Collections;
 using UnityEngine;
 
 public class WorldInstaller : SceneInstaller
@@ -9,36 +10,71 @@ public class WorldInstaller : SceneInstaller
     [SerializeField] private PartnerHud hud;                    // P5
     [SerializeField] private PartnerFollower follower;          // versi demo
     [SerializeField] private Vector2 respawnPoint = new Vector2(21.5f, 6f);   // di depan Batu Simpan
-    [SerializeField] private MonsterData debugStarter;          // sementara, dihapus P6 (partner dari Tetua)
 
     private GameServices services;
 
     public override void Install(GameServices s)
     {
         services = s;
+        s.Player = player.transform;
         player.Construct(s.Input);
         interactor.Construct(s.Input);
         hud.Construct(s.Party);
         follower.Construct(s.Party, player);
 
+        foreach (Npc npc in FindInScene<Npc>()) npc.Construct(s.Dialogue, s.Flags);                       // P6
+        foreach (StarterGiver giver in FindInScene<StarterGiver>())
+            giver.ConstructStarter(s.Party, s.Toast, s.Audio);
+        foreach (MerchantNpc merchant in FindInScene<MerchantNpc>()) merchant.ConstructMerchant(s.Party, s.Audio);
+        foreach (FlagToggle toggle in FindInScene<FlagToggle>()) toggle.Construct(s.Flags);
+        foreach (SaveStone stone in FindInScene<SaveStone>()) stone.Construct(s, player.transform);
         foreach (WildMonster wild in FindInScene<WildMonster>())
-            wild.Construct(s.Battle, s.Scenes, s.Party, player.transform);
+            wild.Construct(s.Battle, s.Scenes, s.Party, s.Flags, s.Input, s.Dialogue, player.transform);
         foreach (AreaZone zone in FindInScene<AreaZone>())
-            zone.Entered += hud.ShowArea;                                                                 // P5
-        s.Battle.Ended += OnBattleEnded;                                                                  // P5
+        {
+            zone.Construct(s.Audio);                                                                      // P6
+            zone.Entered += hud.ShowArea;
+        }
+        s.Battle.Ended += OnBattleEnded;
 
-        if (s.Party.Partner == null && debugStarter != null)
-            s.Party.SetPartner(new MonsterInstance(debugStarter, 3));
+        if (s.Save.PendingLoad != null)                         // P6: lanjut dari file save
+        {
+            player.Teleport(s.Save.PendingLoad.playerPosition, Vector2.down);
+            s.Save.PendingLoad = null;
+            s.Toast.Show("Perjalanan dilanjutkan");
+        }
+        else if (!s.Flags.Has(StoryFlags.IntroSeen))            // versi demo: narasi di atas layar hitam
+        {
+            s.Scenes.HoldFade = true;
+            StartCoroutine(Intro());
+        }
     }
 
     void OnDestroy()
     {
-        if (services != null) services.Battle.Ended -= OnBattleEnded;
+        if (services != null) { services.Battle.Ended -= OnBattleEnded; services.Player = null; }
+    }
+
+    private IEnumerator Intro()
+    {
+        services.Dialogue.Run(IntroLines());
+        yield return null;
+        while (services.Dialogue.IsRunning) yield return null;
+        services.Flags.Set(StoryFlags.IntroSeen);
+        yield return services.Scenes.ReleaseFade();
+        services.Toast.Show("Temui Tetua Rahmat (kanan jalan desa)");
+    }
+
+    private IEnumerator IntroLines()
+    {
+        yield return services.Dialogue.Narrate("Di ujung Pulau Batam ada desa kecil yang hidup berdampingan dengan monster.");
+        yield return services.Dialogue.Narrate("Hari ini kamu akan mendapat monster partner pertamamu. Temui Tetua Rahmat di desa.");
     }
 
     private void OnBattleEnded(BattleResult result, bool wasBoss)
     {
         if (result == BattleResult.Lose)
             player.Teleport(respawnPoint, Vector2.up);          // partner sudah dipulihkan BattleSystem
+        // P7: menang melawan boss (wasBoss) → ending dan Scn_End.
     }
 }
