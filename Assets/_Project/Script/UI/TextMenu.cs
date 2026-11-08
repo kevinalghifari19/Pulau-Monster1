@@ -1,4 +1,4 @@
-// Kode_P5 — Daftar pilihan berbentuk teks ("▶ Mulai baru") untuk menu battle, judul, dialog, dan menu jeda. Ditambahkan di P5.
+// Kode_P6 — Daftar pilihan berbentuk teks ("▶ Mulai baru") untuk menu battle, judul, dialog, dan menu jeda. Dibuat di P5, diubah di P6.
 // Bisa dengan keyboard (panah/WASD + E/Spasi/Enter) atau mouse (klik).
 using System;
 using UnityEngine;
@@ -13,6 +13,9 @@ public class TextMenu : MonoBehaviour
     [SerializeField] private Color normal = new Color32(237, 233, 247, 255);
     [SerializeField] private Color selected = new Color32(255, 198, 26, 255);
     [SerializeField] private Color disabled = new Color32(92, 86, 128, 255);
+    [SerializeField] private AudioClip moveClip;
+    [SerializeField] private AudioClip okClip;
+    [SerializeField] private AudioClip cancelClip;
 
     private string[] labels = new string[0];
     private bool[] usable = new bool[0];
@@ -21,6 +24,8 @@ public class TextMenu : MonoBehaviour
 
     public int Selected { get; private set; }
     public event Action<int> Picked;
+
+    public static AudioService Sfx;                      // diisi GameBootstrap (opsional)
 
     void Awake()
     {
@@ -83,6 +88,7 @@ public class TextMenu : MonoBehaviour
     {
         if (index < 0 || index >= count) return;
         Selected = index;
+        if (Sfx != null) Sfx.PlaySfx(moveClip, 0f);
         Redraw();
     }
 
@@ -98,7 +104,12 @@ public class TextMenu : MonoBehaviour
 
     private void Pick(int index)
     {
-        if (!usable[index]) return;                         // pilihan redup: tidak bisa dipilih (P6: bunyi batal)
+        if (!usable[index])
+        {
+            if (Sfx != null) Sfx.PlaySfx(cancelClip, 0f);       // pilihan redup: tidak bisa dipilih
+            return;
+        }
+        if (Sfx != null) Sfx.PlaySfx(okClip, 0f);
         Picked?.Invoke(index);
     }
 

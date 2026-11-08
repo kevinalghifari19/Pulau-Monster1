@@ -1,6 +1,7 @@
-// Kode_P4 — Monster liar di dunia: FSM Wander → Chase → Return, lalu memicu battle saat menyentuh pemain. Ditambahkan di P4.
-// Versi demo: tanda "!" merah saat mengejar dan tidak mengejar selama 2,2 detik setelah battle.
-// P6 menambah: StoryFlags (boss_defeated), diam saat dialog (InputGate), dan auman boss lewat dialog.
+// Kode_P6 — Monster liar di dunia: FSM Wander → Chase → Return, lalu memicu battle saat menyentuh pemain. Dibuat di P4, diubah di P6.
+// P6: menerima StoryFlags — boss yang sudah kalah menandai boss_defeated dan tidak muncul lagi setelah Load.
+// Versi demo: tanda "!" merah saat mengejar, tidak mengejar selama dialog / 2,2 detik setelah battle,
+// dan boss mengaum dulu lewat dialog sebelum battle dimulai.
 using System.Collections;
 using UnityEngine;
 
@@ -20,10 +21,14 @@ public class WildMonster : MonoBehaviour
     [SerializeField] private SpriteRenderer body;
     [SerializeField] private Collider2D hitbox;
     [SerializeField] private GameObject alert;                 // versi demo: tanda "!"
+    [SerializeField] private string roar = "GRRRAAAH!! Raijugar menghalangi jalan, percikan listrik memenuhi gua!";
 
     private BattleSession session;
     private SceneFlow scenes;
     private PlayerParty party;
+    private StoryFlags flags;                                   // P6
+    private InputGate gate;                                     // versi demo: terkunci = dialog/menu
+    private DialogueRunner dialogue;                            // versi demo: auman boss
     private StateMachine fsm;
     private Vector2 desiredVelocity;
     private bool inBattle;
@@ -39,12 +44,17 @@ public class WildMonster : MonoBehaviour
     public ChaseState Chase { get; private set; }
     public ReturnState Return { get; private set; }
 
-    public void Construct(BattleSession battleSession, SceneFlow sceneFlow, PlayerParty playerParty, Transform player)
+    public void Construct(BattleSession battleSession, SceneFlow sceneFlow, PlayerParty playerParty,
+                          StoryFlags storyFlags, InputGate inputGate, DialogueRunner dialogueRunner, Transform player)
     {
         session = battleSession;
         scenes = sceneFlow;
         party = playerParty;
+        flags = storyFlags;
+        gate = inputGate;
+        dialogue = dialogueRunner;
         Target = player;
+        if (isBoss && flags.Has(StoryFlags.BossDefeated)) gameObject.SetActive(false);   // P6
     }
 
     void Awake()
@@ -73,7 +83,7 @@ public class WildMonster : MonoBehaviour
     public void ChangeState(IState next) => fsm.ChangeTo(next);
 
     public float DistanceToTarget => Vector2.Distance(transform.position, Target.position);
-    private bool Calm => cooldown > 0f || session.IsSafe;          // P6: || gate.IsLocked (dialog/menu)
+    private bool Calm => cooldown > 0f || session.IsSafe || gate.IsLocked;
     public bool CanSeeTarget => party != null && party.Partner != null && !Calm && DistanceToTarget < sightRadius;
     public bool LostTarget => Calm || DistanceToTarget > giveUpRadius;
 
@@ -91,7 +101,21 @@ public class WildMonster : MonoBehaviour
         inBattle = true;
         int level = Random.Range(levelRange.x, levelRange.y + 1);
         session.Begin(new MonsterInstance(species, level), isBoss, OnBattleFinished);
-        scenes.StartBattle();                    // P6: boss mengaum dulu lewat dialog
+        if (isBoss) StartCoroutine(BossIntro());
+        else scenes.StartBattle();
+    }
+
+    private IEnumerator BossIntro()
+    {
+        dialogue.Run(Roar());
+        yield return null;
+        while (dialogue.IsRunning) yield return null;
+        scenes.StartBattle();
+    }
+
+    private IEnumerator Roar()
+    {
+        yield return dialogue.Say("", roar);
     }
 
     // Dipanggil SceneFlow setelah Scn_World aktif kembali.
@@ -100,7 +124,7 @@ public class WildMonster : MonoBehaviour
         inBattle = false;
         if (result == BattleResult.Win)
         {
-            if (isBoss) { gameObject.SetActive(false); return; }   // P6: juga menandai flag boss_defeated
+            if (isBoss) { flags.Set(StoryFlags.BossDefeated); gameObject.SetActive(false); return; }   // P6
             StartCoroutine(Respawn());
         }
         else

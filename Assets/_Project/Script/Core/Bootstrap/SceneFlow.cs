@@ -1,11 +1,13 @@
-// Kode_P4 — Mengatur perpindahan scene: World (dimuat sendiri) dan Battle (di atas World). Ditambahkan di P4.
-// Kode_P4: versi ringkas — layar judul, narasi pembuka (HoldFade), musik, dan Scn_End ditambahkan di P6–P7.
+// Kode_P6 — Mengatur perpindahan scene: Title/World (bergantian) dan Battle (di atas World). Dibuat di P4, diubah di P6.
+// P6: setelah battle, musik dunia diputar lagi.
+// Versi demo: HoldFade (layar tetap hitam untuk narasi pembuka), CurrentScene, IsBusy.
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneFlow
 {
+    public const string TitleScene = "Scn_Title";
     public const string WorldScene = "Scn_World";
     private const string BattleScene = "Scn_Battle";
 
@@ -25,6 +27,10 @@ public class SceneFlow
     public string CurrentScene => currentScene;
     public bool IsBusy => busy;
     public bool InBattle { get; private set; }
+    public bool InGame => currentScene == WorldScene;
+
+    // Diisi installer saat Install: layar dibiarkan hitam sampai ReleaseFade dipanggil.
+    public bool HoldFade { get; set; }
 
     public void GoTo(string scene)
     {
@@ -38,6 +44,13 @@ public class SceneFlow
 
     public void EndBattle(BattleResult result) => runner.StartCoroutine(EndBattleRoutine(result));
 
+    public IEnumerator ReleaseFade()
+    {
+        HoldFade = false;
+        yield return fader.FadeIn();
+        busy = false;
+    }
+
     private IEnumerator GoToRoutine(string scene)
     {
         busy = true;
@@ -46,6 +59,7 @@ public class SceneFlow
             yield return SceneManager.UnloadSceneAsync(currentScene);
         currentScene = scene;
         yield return LoadAndInstall(scene);
+        if (HoldFade) yield break;             // installer yang akan memanggil ReleaseFade
         yield return fader.FadeIn();
         busy = false;
     }
@@ -69,6 +83,7 @@ public class SceneFlow
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentScene));
         InBattle = false;
         services.Battle.Finish(result);                       // dunia sudah aktif lagi
+        if (services.Audio != null) services.Audio.ResumeWorldMusic();   // P6
         services.Input.Unlock();
         yield return fader.FadeIn();
         busy = false;
