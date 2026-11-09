@@ -1,3 +1,5 @@
+// Kode_P6 — Gerak pemain (Rigidbody2D) dari IMoveInput dan PlayerConfig. Dibuat di P1, diubah di P2, P3, P5.
+// Versi demo: Teleport (kembali ke desa setelah kalah, posisi dari file save).
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,58 +7,35 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerConfig config;
     [SerializeField] private Rigidbody2D rb;
     private IMoveInput input;
+    private Vector2 velocity;
 
-    public Vector2 Velocity { get; private set; }
-    public Vector2 Facing { get; private set; } = Vector2.down;
+    public Vector2 Velocity => velocity;                               // P3
+    public Vector2 Facing { get; private set; } = Vector2.down;        // P3
 
     public void Construct(IMoveInput moveInput) => input = moveInput;
 
     void Update()
     {
         if (input == null) return;
-
         Vector2 move = input.Move;
         float speed = input.IsRunning ? config.RunSpeed : config.WalkSpeed;
-        Velocity = move * speed;
-
-        if (move.sqrMagnitude > 0.01f)
-        {
-            Facing = ToCardinal(move);
-        }
-
-        transform.Translate(Velocity * Time.deltaTime);
+        velocity = move * speed;
+        if (move.sqrMagnitude > 0.01f) Facing = ToCardinal(move);      // P3
     }
 
-    // Teleport dengan 1 parameter posisi
-    public void Teleport(Vector2 position)
-    {
-        transform.position = position;
-        if (rb != null)
-        {
-            rb.position = position;
-        }
-    }
+    void FixedUpdate() => rb.linearVelocity = velocity;
 
-    // Teleport dengan 2 parameter (Posisi dan Arah Hadap)
     public void Teleport(Vector2 position, Vector2 facing)
     {
-        Teleport(position);
-        if (facing.sqrMagnitude > 0.01f)
-        {
-            Facing = ToCardinal(facing);
-        }
+        rb.position = position;
+        transform.position = position;
+        velocity = Vector2.zero;
+        Facing = facing;
     }
 
-    // Teleport dengan 2 parameter (Koordinat Float X dan Y)
-    public void Teleport(float x, float y)
-    {
-        Teleport(new Vector2(x, y));
-    }
-
-    private static Vector2 ToCardinal(Vector2 v)
-    {
-        return Mathf.Abs(v.x) > Mathf.Abs(v.y)
+    // P3 — arah diagonal dibulatkan ke 4 arah sesuai sprite yang tersedia.
+    private static Vector2 ToCardinal(Vector2 v) =>
+        Mathf.Abs(v.x) > Mathf.Abs(v.y)
             ? new Vector2(Mathf.Sign(v.x), 0f)
             : new Vector2(0f, Mathf.Sign(v.y));
-    }
 }
