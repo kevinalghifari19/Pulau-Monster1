@@ -1,16 +1,14 @@
-// Kode_P6 — Composition Root di Scn_Bootstrap: membuat semua service lalu membuka scene pertama. Dibuat di P2, diubah di P3, P4, P6.
-// Versi demo: toast, menu jeda (Esc), tombol M = suara mati/nyala, hitung waktu bermain.
 using UnityEngine;
 
 public class GameBootstrap : MonoBehaviour
 {
-    [SerializeField] private string firstScene = "Scn_Title";      // P6: sebelumnya "Scn_World"
-    [SerializeField] private MonsterDatabase monsterDatabase;      // P4
-    [SerializeField] private ScreenFader fader;                    // P4
-    [SerializeField] private DialogueRunner dialogueRunner;        // P6
-    [SerializeField] private AudioService audioService;            // P6
-    [SerializeField] private ToastView toast;                      // versi demo
-    [SerializeField] private PauseMenu pauseMenu;                  // versi demo
+    [SerializeField] private string firstScene = "Scn_World"; // Ubah ke "Scn_Title" jika sudah ada scene Title
+    [SerializeField] private MonsterDatabase monsterDatabase;
+    [SerializeField] private ScreenFader fader;
+    [SerializeField] private DialogueRunner dialogueRunner;
+    [SerializeField] private AudioService audioService;
+    [SerializeField] private ToastView toast;
+    [SerializeField] private PauseMenu pauseMenu;
 
     private GameServices services;
 
@@ -43,6 +41,6 @@ public class GameBootstrap : MonoBehaviour
     void Update()
     {
         if (MenuInput.Mute) audioService.ToggleMute();
-        if (services.Scenes.InGame) services.Party.Playtime += Time.unscaledDeltaTime;   // dunia + battle
+        if (services.Scenes.InGame) services.Party.Playtime += Time.unscaledDeltaTime;
     }
 }

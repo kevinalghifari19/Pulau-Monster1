@@ -1,4 +1,4 @@
-// Kode_P5 — Gerak pemain (Rigidbody2D) dari IMoveInput dan PlayerConfig. Dibuat di P1, diubah di P2, P3, P5.
+// Kode_P6 — Gerak pemain (Rigidbody2D) dari IMoveInput dan PlayerConfig. Dibuat di P1, diubah di P2, P3, P5.
 // Versi demo: Teleport (kembali ke desa setelah kalah, posisi dari file save).
 using UnityEngine;
 

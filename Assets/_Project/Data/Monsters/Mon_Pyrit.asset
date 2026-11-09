@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d960e48a605aa64c85b140a0ee90696, type: 3}
   m_Name: Mon_Pyrit
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
-  id: 'MON_001 '
+  id: MON_001
   displayName: Pyrit
   element: 0
   frames:

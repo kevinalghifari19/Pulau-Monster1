@@ -1181,6 +1181,9 @@ MonoBehaviour:
   normal: {r: 0.92941177, g: 0.9137255, b: 0.96862745, a: 1}
   selected: {r: 1, g: 0.7764706, b: 0.101960786, a: 1}
   disabled: {r: 0.36078432, g: 0.3372549, b: 0.5019608, a: 1}
+  moveClip: {fileID: 0}
+  okClip: {fileID: 0}
+  cancelClip: {fileID: 0}
 --- !u!1 &478954452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 478954454}
   - component: {fileID: 478954453}
+  - component: {fileID: 478954455}
   m_Layer: 0
   m_Name: BattleInstaller
   m_TagString: Untagged
@@ -1212,6 +1216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleInstaller
   battle: {fileID: 596875331}
   view: {fileID: 22255856}
+  battleAudio: {fileID: 478954455}
+  normalMusic: {fileID: 8300000, guid: ccc589a041792714ebf5588cbb639244, type: 3}
+  bossMusic: {fileID: 8300000, guid: 95d32021e9f2581498cea15c90812d7d, type: 3}
   background: {fileID: 1838754682}
   forestBackground: {fileID: 21300000, guid: 28ad05d5884a8084c8a1bcb5ab604a5d, type: 3}
   caveBackground: {fileID: 21300000, guid: c1ba066f449dc724f9c1babcb895b8f4, type: 3}
@@ -1230,6 +1237,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &478954455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478954452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59534cf78b55dbb489434190205c3818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleAudio
+  hitClip: {fileID: 8300000, guid: 9a065ab31643a304ca3cfbedc03af911, type: 3}
+  criticalClip: {fileID: 8300000, guid: 8704af8979f9d2445a5d0630acebbe21, type: 3}
+  missClip: {fileID: 8300000, guid: fb827c7f8c38f9841b6c17438baed7bb, type: 3}
+  healClip: {fileID: 8300000, guid: 24453bd3442483b44a1150624dffb564, type: 3}
+  levelClip: {fileID: 8300000, guid: 5232d1eab0fa9a046a1a429f2f877ad9, type: 3}
+  evolveClip: {fileID: 8300000, guid: a9dc5436af1d18f469bafce86688943c, type: 3}
+  victoryClip: {fileID: 8300000, guid: 1037373181c4d4d46880092381f06139, type: 3}
+  faintClip: {fileID: 8300000, guid: 36006ab23669315448cbc1750e8dc61e, type: 3}
 --- !u!1 &596875330
 GameObject:
   m_ObjectHideFlags: 0

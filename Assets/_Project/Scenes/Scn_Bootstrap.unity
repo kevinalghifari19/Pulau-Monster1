@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 142400}
   - component: {fileID: 142399}
   - component: {fileID: 142398}
+  - component: {fileID: 142401}
   m_Layer: 5
   m_Name: Btn_1
   m_TagString: Untagged
@@ -154,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &142398
 MonoBehaviour:
@@ -222,19 +223,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6bcb73c361906314ab3fdc36ddcc5f41, type: 3}
+    m_Font: {fileID: 12800000, guid: 020c1e5f9b206c540a3c8f984d8f7b0b, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: adwwadwa
+  m_Text: Simpan sekarang
 --- !u!222 &142400
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -243,6 +244,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142396}
   m_CullTransparentMesh: 1
+--- !u!114 &142401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.07058824, g: 0.0627451, b: 0.15294118, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &25461374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ae0e9c09b708349918b8a5bcbb8e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBootstrap
-  firstScene: Scn_World
+  firstScene: Scn_Title
   monsterDatabase: {fileID: 11400000, guid: ba3c307d396b4864eb17947a2766f863, type: 2}
   fader: {fileID: 1842194683}
   dialogueRunner: {fileID: 1576027279}
@@ -1812,7 +1828,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 110
   m_TargetDisplay: 0
 --- !u!224 &1576027278
 RectTransform:
@@ -1888,6 +1904,7 @@ GameObject:
   - component: {fileID: 1583528877}
   - component: {fileID: 1583528876}
   - component: {fileID: 1583528875}
+  - component: {fileID: 1583528878}
   m_Layer: 5
   m_Name: Btn_2
   m_TagString: Untagged
@@ -1912,7 +1929,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583528875
 MonoBehaviour:
@@ -1979,19 +1996,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6bcb73c361906314ab3fdc36ddcc5f41, type: 3}
+    m_Font: {fileID: 12800000, guid: 020c1e5f9b206c540a3c8f984d8f7b0b, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: adwwadwa
+  m_Text: Kembali ke judul
 --- !u!222 &1583528877
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2000,6 +2017,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583528873}
   m_CullTransparentMesh: 1
+--- !u!114 &1583528878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583528873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.07058824, g: 0.0627451, b: 0.15294118, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1691395342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,7 +2209,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 448, y: 248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1740718076
 MonoBehaviour:
@@ -2345,6 +2377,7 @@ GameObject:
   - component: {fileID: 1846537785}
   - component: {fileID: 1846537784}
   - component: {fileID: 1846537783}
+  - component: {fileID: 1846537786}
   m_Layer: 5
   m_Name: Btn_0
   m_TagString: Untagged
@@ -2368,8 +2401,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: 400, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1846537783
 MonoBehaviour:
@@ -2436,19 +2469,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6bcb73c361906314ab3fdc36ddcc5f41, type: 3}
+    m_Font: {fileID: 12800000, guid: 020c1e5f9b206c540a3c8f984d8f7b0b, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: adwadwad
+  m_Text: Lanjut
 --- !u!222 &1846537785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2457,6 +2490,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846537781}
   m_CullTransparentMesh: 1
+--- !u!114 &1846537786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846537781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.07058824, g: 0.0627451, b: 0.15294118, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1893671685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3006,7 +3054,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11bad7a93abef448a556317c0cdd3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextMenu
-  rows: []
+  rows:
+  - {fileID: 685375345}
+  - {fileID: 1172945020}
+  - {fileID: 1691395346}
   columns: 1
   showCursor: 1
   normal: {r: 0.92941177, g: 0.9137255, b: 0.96862745, a: 1}
